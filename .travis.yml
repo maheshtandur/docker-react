@@ -1,0 +1,23 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t mtandur/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true mtandur/docker-react npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "docker-react"
+  env: "docker-react-env"
+  bucket_name: "add bucket name form aws"
+  bucket_path: "docker-react"
+  on: 
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY # this key will be generated in Tavis tool which is similar to Jenkins
+  secret_access_key: "$AWS_SECRET_KEY" #  this key will be generated in Tavis tool which is similar to Jenkins
