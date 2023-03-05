@@ -7,4 +7,16 @@ before_install:
    - docker build -t mtandur/docker-react -f Dockerfile.dev .
 
 script:
-   - docker run -e CI=true mtandur/docker-react npm run test -- --coverage 
+   - docker run -e CI=true mtandur/docker-react npm run test -- --coverage
+
+deploy:
+   provider: elasticbeanstalk
+   region: "eu-central-1"
+   app: docker-react
+   env: "Dockerreact-env"
+   bucket_name: "elasticbeanstalk-eu-central-1-176651942436"
+   bucket_path: "docker-react"
+   on:
+      branch: main
+   access_key_id: $AWS_ACCESS_KEY
+   secret_access_key: "$AWS_SECRET_KEY"
