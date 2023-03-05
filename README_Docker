@@ -1,0 +1,14 @@
+Commands to run and fronend docker image
+
+Command to run using Dockerfile.dev
+    - docker build -f DOckerfile.dev .
+    - docker run -p 3000:3000 -v /app/node_module -v $(pwd):/app <image id>
+    - open web browser with URL: http://localhost:3000/
+
+Command to run using dokcer-compose.yml
+    - docker-compose up -d --build
+    - open web browser with URL: http://localhost:3000/
+
+Note:
+    - If you see error as:strconv.Atoi: parsing "": invalid syntax
+    - Then restart docker client and rerun docker-compose command
